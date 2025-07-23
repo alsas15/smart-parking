@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg
+*.egg-info/
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+*.sqlite3
+
+# VS Code
+.vscode/
+
+# Alembic
+migrations/__pycache__/
+migrations/versions/*.pyc
+
+# dotenv
+.env
