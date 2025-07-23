@@ -1,0 +1,38 @@
+stages:
+  - lint
+  - test
+
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+
+before_script:
+  - python -m venv venv
+  - source venv/bin/activate
+  - pip install --upgrade pip
+  - pip install -r requirements.txt
+
+flake8:
+  stage: lint
+  script:
+    - flake8 app tests
+
+isort:
+  stage: lint
+  script:
+    - isort --check-only --diff app tests
+
+black:
+  stage: lint
+  script:
+    - black --check app tests
+
+mypy:
+  stage: lint
+  script:
+    - mypy app tests
+
+pytest:
+  stage: test
+  script:
+    - pytest --tb=short --disable-warnings --cov=app
+  coverage: '/^TOTAL\s+\d+\s+\d+\s+(\d+)%/'
