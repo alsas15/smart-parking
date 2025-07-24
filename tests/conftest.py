@@ -1,4 +1,3 @@
-from datetime import datetime
 from typing import Generator
 
 import pytest
@@ -7,7 +6,7 @@ from flask.testing import FlaskClient
 from sqlalchemy.orm import Session
 
 from app import create_app, db
-from app.models import Client, ClientParking, Parking
+from app.models import Client, Parking
 
 
 @pytest.fixture
@@ -32,7 +31,7 @@ def client(app: Flask) -> FlaskClient:
 @pytest.fixture
 def db_session(app: Flask) -> Generator[Session, None, None]:
     with app.app_context():
-        yield db.session  # type: ignore
+        yield db.session
 
 
 @pytest.fixture
