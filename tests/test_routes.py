@@ -3,7 +3,9 @@ from flask.testing import FlaskClient
 
 
 @pytest.mark.parametrize("url", ["/clients", "/clients/1"])
-def test_get_endpoints(client: FlaskClient, setup_data: dict[str, object], url: str) -> None:
+def test_get_endpoints(
+    client: FlaskClient, setup_data: dict[str, object], url: str
+) -> None:
     res = client.get(url)
     assert res.status_code == 200
 
