@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 db: SQLAlchemy = SQLAlchemy()
 
+
 def create_app() -> Flask:
     from .routes import bp
 
