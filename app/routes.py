@@ -16,7 +16,6 @@ def get_clients() -> Response:
         [{"id": c.id, "name": c.name, "surname": c.surname} for c in clients]
     )
 
-
 @bp.route("/clients/<int:client_id>", methods=["GET"])
 def get_client(client_id: int) -> Response:
     c = Client.query.get_or_404(client_id)
@@ -30,7 +29,6 @@ def get_client(client_id: int) -> Response:
         }
     )
 
-
 @bp.route("/clients", methods=["POST"])
 def create_client() -> Response:
     data = request.json
@@ -39,7 +37,6 @@ def create_client() -> Response:
     db.session.commit()
     return jsonify({"id": c.id}), 201
 
-
 @bp.route("/parkings", methods=["POST"])
 def create_parking() -> Response:
     data = request.json
@@ -47,7 +44,6 @@ def create_parking() -> Response:
     db.session.add(p)
     db.session.commit()
     return jsonify({"id": p.id}), 201
-
 
 @bp.route("/client_parkings", methods=["POST"])
 def enter_parking() -> Response:
@@ -68,7 +64,6 @@ def enter_parking() -> Response:
     parking.count_available_places -= 1
     db.session.commit()
     return jsonify({"message": "Client entered"})
-
 
 @bp.route("/client_parkings", methods=["DELETE"])
 def exit_parking() -> Response:
