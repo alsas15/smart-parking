@@ -1,7 +1,14 @@
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from flask_sqlalchemy import SQLAlchemy
+
+    db: SQLAlchemy
+
 from . import db
 
 
-class Client(db.Model):
+class Client(db.Model):  # type: ignore[name-defined]
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
     surname = db.Column(db.String(50), nullable=False)
@@ -9,7 +16,7 @@ class Client(db.Model):
     car_number = db.Column(db.String(10))
 
 
-class Parking(db.Model):
+class Parking(db.Model):  # type: ignore[name-defined]
     id = db.Column(db.Integer, primary_key=True)
     address = db.Column(db.String(100), nullable=False)
     opened = db.Column(db.Boolean)
@@ -17,7 +24,7 @@ class Parking(db.Model):
     count_available_places = db.Column(db.Integer, nullable=False)
 
 
-class ClientParking(db.Model):
+class ClientParking(db.Model):  # type: ignore[name-defined]
     id = db.Column(db.Integer, primary_key=True)
     client_id = db.Column(db.Integer, db.ForeignKey("client.id"))
     parking_id = db.Column(db.Integer, db.ForeignKey("parking.id"))
