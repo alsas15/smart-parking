@@ -1,13 +1,17 @@
 from datetime import datetime
+from typing import Generator
 
 import pytest
+from flask import Flask
+from flask.testing import FlaskClient
+from sqlalchemy.orm import Session
 
 from app import create_app, db
 from app.models import Client, ClientParking, Parking
 
 
 @pytest.fixture
-def app():
+def app() -> Generator[Flask, None, None]:
     app = create_app()
     app.config.update(
         {"TESTING": True, "SQLALCHEMY_DATABASE_URI": "sqlite:///:memory:"}
@@ -21,18 +25,18 @@ def app():
 
 
 @pytest.fixture
-def client(app):
+def client(app: Flask) -> FlaskClient:
     return app.test_client()
 
 
 @pytest.fixture
-def db_session(app):
+def db_session(app: Flask) -> Generator[Session, None, None]:
     with app.app_context():
         yield db.session
 
 
 @pytest.fixture
-def setup_data(db_session):
+def setup_data(db_session: Session) -> dict[str, object]:
     client = Client(
         name="Ivan", surname="Ivanov", car_number="A123BC", credit_card="1234"
     )

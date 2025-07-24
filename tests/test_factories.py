@@ -2,7 +2,7 @@ from tests.factories import ClientFactory, ParkingFactory
 
 
 def test_create_client_with_factory(db_session):
-    client = ClientFactory(sqlalchemy_session=db_session)
+    client = ClientFactory.create(sqlalchemy_session=db_session)
     assert client.id is not None
     assert client.name is not None
 
