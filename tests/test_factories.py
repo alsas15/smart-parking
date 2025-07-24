@@ -1,4 +1,3 @@
-import pytest
 from tests.factories import ClientFactory, ParkingFactory
 
 def test_create_client_with_factory(db_session):
