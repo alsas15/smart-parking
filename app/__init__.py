@@ -13,7 +13,6 @@ def create_app() -> Flask:
     app.register_blueprint(bp)
 
     with app.app_context():
-        from . import models
         db.create_all()
 
     return app
