@@ -1,10 +1,11 @@
 import pytest
 from flask.testing import FlaskClient
+from app.models import Client, Parking
 
 
 @pytest.mark.parametrize("url", ["/clients", "/clients/1"])
 def test_get_endpoints(
-    client: FlaskClient, setup_data: dict[str, object], url: str
+    client: FlaskClient, setup_data: dict[str, Client | Parking], url: str
 ) -> None:
     res = client.get(url)
     assert res.status_code == 200
@@ -37,7 +38,9 @@ def test_create_parking(client: FlaskClient) -> None:
 
 
 @pytest.mark.parking
-def test_enter_parking(client: FlaskClient, setup_data: dict[str, object]) -> None:
+def test_enter_parking(
+    client: FlaskClient, setup_data: dict[str, Client | Parking]
+) -> None:
     res = client.post(
         "/client_parkings",
         json={
@@ -49,7 +52,9 @@ def test_enter_parking(client: FlaskClient, setup_data: dict[str, object]) -> No
 
 
 @pytest.mark.parking
-def test_exit_parking(client: FlaskClient, setup_data: dict[str, object]) -> None:
+def test_exit_parking(
+    client: FlaskClient, setup_data: dict[str, Client | Parking]
+) -> None:
     res = client.delete(
         "/client_parkings",
         json={

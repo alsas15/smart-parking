@@ -32,11 +32,11 @@ def client(app: Flask) -> FlaskClient:
 @pytest.fixture
 def db_session(app: Flask) -> Generator[Session, None, None]:
     with app.app_context():
-        yield db.session
+        yield db.session  # type: ignore
 
 
 @pytest.fixture
-def setup_data(db_session: Session) -> dict[str, object]:
+def setup_data(db_session: Session) -> dict[str, Client | Parking]:
     client = Client(
         name="Ivan", surname="Ivanov", car_number="A123BC", credit_card="1234"
     )
