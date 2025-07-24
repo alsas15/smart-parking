@@ -1,5 +1,4 @@
 from datetime import datetime
-from typing import Any
 
 from flask import Blueprint, jsonify, request
 from flask.wrappers import Response
