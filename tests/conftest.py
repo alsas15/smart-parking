@@ -36,7 +36,7 @@ def db_session(app: Flask) -> Generator[Session, None, None]:
 
 
 @pytest.fixture
-def setup_data(db_session: Session) -> dict[str, Client | Parking]:
+def setup_data(db_session: Session) -> dict[str, object]:
     client = Client(
         name="Ivan", surname="Ivanov", car_number="A123BC", credit_card="1234"
     )
@@ -45,12 +45,6 @@ def setup_data(db_session: Session) -> dict[str, Client | Parking]:
     )
     db_session.add(client)
     db_session.add(parking)
-    db_session.commit()
-
-    cp = ClientParking(
-        client_id=client.id, parking_id=parking.id, time_in=datetime.now()
-    )
-    db_session.add(cp)
     db_session.commit()
 
     return {"client": client, "parking": parking}

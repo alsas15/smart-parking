@@ -1,37 +1,25 @@
-import factory
-from factory.fuzzy import FuzzyChoice, FuzzyInteger
-from faker import Faker
-
+from factory.alchemy import SQLAlchemyModelFactory
 from app.models import Client, Parking
+from app import db
 
-fake = Faker()
-
-
-class ClientFactory(factory.alchemy.SQLAlchemyModelFactory):
+class ClientFactory(SQLAlchemyModelFactory):
     class Meta:
         model = Client
-        sqlalchemy_session = None
-        sqlalchemy_session_persistence = "commit"
+        sqlalchemy_session = db.session
+        sqlalchemy_session_persistence = "flush"
 
-    name = factory.LazyAttribute(lambda _: fake.first_name())
-    surname = factory.LazyAttribute(lambda _: fake.last_name())
-    credit_card = factory.LazyAttribute(
-        lambda _: (
-            fake.credit_card_number()
-            if fake.boolean(chance_of_getting_true=70)
-            else None
-        )
-    )
-    car_number = factory.LazyAttribute(lambda _: fake.license_plate())
+    name = "Ivan"
+    surname = "Ivanov"
+    car_number = "A123BC"
+    credit_card = "1234"
 
-
-class ParkingFactory(factory.alchemy.SQLAlchemyModelFactory):
+class ParkingFactory(SQLAlchemyModelFactory):
     class Meta:
         model = Parking
-        sqlalchemy_session = None
-        sqlalchemy_session_persistence = "commit"
+        sqlalchemy_session = db.session
+        sqlalchemy_session_persistence = "flush"
 
-    address = factory.LazyAttribute(lambda _: fake.address())
-    opened = FuzzyChoice([True, False])
-    count_places = FuzzyInteger(10, 100)
-    count_available_places = factory.LazyAttribute(lambda obj: obj.count_places)
+    address = "Test Street"
+    opened = True
+    count_places = 10
+    count_available_places = 10
