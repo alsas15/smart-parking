@@ -7,7 +7,7 @@ from flask.testing import FlaskClient
 from sqlalchemy.orm import scoped_session
 
 from app import create_app, db
-from app.models import Client, Parking, ClientParking
+from app.models import Client, ClientParking, Parking
 
 
 @pytest.fixture
