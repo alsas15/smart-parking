@@ -36,12 +36,25 @@ def db_session(app: Flask) -> Generator[scoped_session, None, None]:
 
 
 @pytest.fixture
-def setup_data(db_session: scoped_session) -> dict[str, object]:
+def setup_enter_data(db_session: scoped_session) -> dict[str, object]:
     client = Client(
         name="Ivan", surname="Ivanov", car_number="A123BC", credit_card="1234"
     )
     parking = Parking(
         address="Main Street", opened=True, count_places=10, count_available_places=5
+    )
+    db_session.add_all([client, parking])
+    db_session.commit()
+    return {"client": client, "parking": parking}
+
+
+@pytest.fixture
+def setup_exit_data(db_session: scoped_session) -> dict[str, object]:
+    client = Client(
+        name="Petr", surname="Petrov", car_number="B456CD", credit_card="5678"
+    )
+    parking = Parking(
+        address="Second Street", opened=True, count_places=15, count_available_places=8
     )
     db_session.add_all([client, parking])
     db_session.commit()

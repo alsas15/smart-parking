@@ -40,13 +40,13 @@ def test_create_parking(client: FlaskClient) -> None:
 
 @pytest.mark.parking
 def test_enter_parking(
-    client: FlaskClient, setup_data: dict[str, Client | Parking]
+    client: FlaskClient, setup_enter_data: dict[str, Client | Parking]
 ) -> None:
     res = client.post(
         "/client_parkings",
         json={
-            "client_id": setup_data["client"].id,
-            "parking_id": setup_data["parking"].id,
+            "client_id": setup_enter_data["client"].id,
+            "parking_id": setup_enter_data["parking"].id,
         },
     )
     assert res.status_code == 200
@@ -54,13 +54,13 @@ def test_enter_parking(
 
 @pytest.mark.parking
 def test_exit_parking(
-    client: FlaskClient, setup_data: dict[str, Client | Parking]
+    client: FlaskClient, setup_exit_data: dict[str, Client | Parking]
 ) -> None:
     res = client.delete(
         "/client_parkings",
         json={
-            "client_id": setup_data["client"].id,
-            "parking_id": setup_data["parking"].id,
+            "client_id": setup_exit_data["client"].id,
+            "parking_id": setup_exit_data["parking"].id,
         },
     )
     assert res.status_code == 200
