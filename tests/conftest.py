@@ -3,7 +3,7 @@ from typing import Generator
 import pytest
 from flask import Flask
 from flask.testing import FlaskClient
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import scoped_session
 
 from app import create_app, db
 from app.models import Client, Parking
@@ -29,13 +29,13 @@ def client(app: Flask) -> FlaskClient:
 
 
 @pytest.fixture
-def db_session(app: Flask) -> Generator[Session, None, None]:
+def db_session(app: Flask) -> Generator[scoped_session, None, None]:
     with app.app_context():
         yield db.session
 
 
 @pytest.fixture
-def setup_data(db_session: Session) -> dict[str, object]:
+def setup_data(db_session: scoped_session) -> dict[str, object]:
     client = Client(
         name="Ivan", surname="Ivanov", car_number="A123BC", credit_card="1234"
     )
