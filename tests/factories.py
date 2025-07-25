@@ -1,7 +1,7 @@
 from factory.alchemy import SQLAlchemyModelFactory
 
-from app.models import Client, Parking
 from app import db
+from app.models import Client, Parking
 
 
 class ClientFactory(SQLAlchemyModelFactory):

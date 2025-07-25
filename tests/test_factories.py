@@ -1,5 +1,6 @@
-from tests.factories import ClientFactory, ParkingFactory
 from sqlalchemy.orm import Session
+
+from tests.factories import ClientFactory, ParkingFactory
 
 
 def test_create_client_with_factory(db_session: Session) -> None:
